@@ -27,18 +27,18 @@ docsearch = PineconeVectorStore.from_existing_index(
     index_name=index_name,
     embedding=embeddings
 )
-retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k": 2})
 
 # --- LLM ---
 chatModel = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash",
+    model="gemini-2.5-flash-lite",
     api_key=API_KEY
 )
 
 # --- Memory (last 5 messages) ---
 memory = ConversationBufferWindowMemory(
     memory_key="chat_history",
-    k=5,
+    k=3,
     return_messages=True
 )
 
