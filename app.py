@@ -61,19 +61,15 @@ def index():
 @app.route("/get", methods=["GET", "POST"])
 def chat():
     msg = request.form["msg"]
-    print("User:", msg)
-
     # Run RAG chain with both input + memory
     response = rag_chain.invoke({
         "input": msg,
         "chat_history": memory.load_memory_variables({})["chat_history"]
     })
-
     # Save this exchange into memory
     memory.save_context({"input": msg}, {"output": response["answer"]})
-
-    print("Response:", response["answer"])
     return str(response["answer"])
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    port = int(os.environ.get("PORT", 8080))  
+    app.run(host="0.0.0.0", port=port, debug=True)
