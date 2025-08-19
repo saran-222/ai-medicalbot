@@ -14,6 +14,7 @@ system_prompt_1 = (
     "and maintain context. If the retriever lacks some details, "
     "still try to answer based on prior conversation."
     "\n\n"
+     "{context}"
 )
 
 
